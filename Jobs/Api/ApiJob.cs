@@ -13,13 +13,64 @@ namespace Jobs.Api
 
         public List<Job> GetAllJobs()
         {
-            List<Job> listjobs = new List<Job>();
+            List<Job> result = new List<Job>();
             ApiBase api = new ApiBase();
 
-            Result result = api.GetCommand("job/GetAll");
+            Result response = api.GetComand("job/GetAll");
 
-            listjobs = JsonConvert.DeserializeObject<List<Job>>(result.data);
-                return listjobs;
+            result = JsonConvert.DeserializeObject<List<Job>>(response.data);
+
+            return result;
+        }
+
+        public Job GetJob(int id)
+        {
+            Job result = new Job();
+            ApiBase api = new ApiBase();
+
+            Result response = api.GetComand("job/Get?id=" + id);
+
+            if (result != null && response.success)
+            {
+                result = JsonConvert.DeserializeObject<Job>(response.data);
+            }
+
+            return result;
+        }
+
+        public Result AddJob(Job job)
+        {
+            ApiBase api = new ApiBase();
+
+            string parameters = JsonConvert.SerializeObject(job);
+
+            Result result = api.PostComand("job/Add", parameters);
+
+            return result;
+        }
+
+        public Result UpdateJob(Job job)
+        {
+            ApiBase api = new ApiBase();
+
+            string parameters = JsonConvert.SerializeObject(job);
+
+            Result result = api.PutComand("job/Update", parameters);
+
+            return result;
+        }
+
+        public bool DeleteJob(int id)
+        {
+            ApiBase api = new ApiBase();
+
+            string parameters = JsonConvert.SerializeObject(id);
+
+            Result response = api.DeleteComand("job/Delete?id=" + id);
+
+            bool result = response.success;
+
+            return result;
         }
     }
 }

@@ -13,45 +13,74 @@ namespace Jobs.Api
     {
         public bool Check()
         {
-            bool result = false;
-            try
-            {
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                HttpResponseMessage response = client.GetAsync(Config.apiBaseUrl + "home/Check").Result;
-                string responseString = response.Content.ReadAsStringAsync().Result;
+            HttpResponseMessage response = client.GetAsync(Config.apiBaseUrl + "home/Check").Result;
+            string responseString = response.Content.ReadAsStringAsync().Result;
 
-                result = Convert.ToBoolean(responseString);
-            }
-            catch (Exception ex)
-            { }
-
+            bool result = Convert.ToBoolean(responseString);
 
             return result;
         }
 
-        public Result GetCommand(string url)
+        public Result GetComand(string url)
         {
             Result result = new Result();
-            try
-            {
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                HttpResponseMessage response = client.GetAsync(Config.apiBaseUrl + url).Result;
-                string responseString = response.Content.ReadAsStringAsync().Result;
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                result = JsonConvert.DeserializeObject<Result>(responseString);
-            }
-            catch (Exception ex)
-            { }
+            HttpResponseMessage response = client.GetAsync(Config.apiBaseUrl + url).Result;
+            string responseString = response.Content.ReadAsStringAsync().Result;
 
+            result = JsonConvert.DeserializeObject<Result>(responseString);
+
+            return result;
+
+        }
+
+        public Result PostComand(string url, string parameters)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            HttpContent content = new StringContent(parameters, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(Config.apiBaseUrl + url, content).Result;
+            string responseString = response.Content.ReadAsStringAsync().Result;
+
+            Result result = JsonConvert.DeserializeObject<Result>(responseString);
 
             return result;
         }
 
+        public Result PutComand(string url, string parameters)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            HttpContent content = new StringContent(parameters, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PutAsync(Config.apiBaseUrl + url, content).Result;
+            string responseString = response.Content.ReadAsStringAsync().Result;
+
+            Result result = JsonConvert.DeserializeObject<Result>(responseString);
+
+            return result;
+        }
+
+        public Result DeleteComand(string url)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            HttpResponseMessage response = client.DeleteAsync(Config.apiBaseUrl + url).Result;
+            string responseString = response.Content.ReadAsStringAsync().Result;
+
+            Result result = JsonConvert.DeserializeObject<Result>(responseString);
+
+            return result;
 
 
+        }
     }
 }
