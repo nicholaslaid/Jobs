@@ -18,7 +18,12 @@ namespace Jobs.Api
 
             Result response = api.GetComand("job/GetAll");
 
-            result = JsonConvert.DeserializeObject<List<Job>>(response.data);
+            if (response.success == true )
+            {
+                result = JsonConvert.DeserializeObject<List<Job>>(response.data);
+            }
+
+            
 
             return result;
         }

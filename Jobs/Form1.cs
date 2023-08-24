@@ -86,5 +86,10 @@ namespace Jobs
             catch (Exception ex)
             { }
         }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            LoadJobs();
+        }
     }
 }

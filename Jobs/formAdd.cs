@@ -31,20 +31,22 @@ namespace Jobs
             Job job = new Job();
             ApiJob api = new ApiJob();
 
-            job.company = textBox2.Text;
-            job.function = textBox3.Text;
-            job.description = textBox6.Text;
-            job.hoursPerWeek = Convert.ToInt32(textBox5.Text);
-            job.payment = Convert.ToInt32(textBox4.Text);
+            job.company = txtCompany.Text;
+            job.function = txtFunction.Text;
+            job.description = txtDesc.Text;
+            job.hoursPerWeek = Convert.ToInt32(txtHours.Text);
+            job.payment = Convert.ToInt32(txtPayment.Text);
 
-            if (Config.edit = true)
+            if (Config.edit == true)
             {
-                job.id = Convert.ToInt32(textBox1.Text);
+                job.id = Convert.ToInt32(txtId.Text);
                 api.UpdateJob(job);
+                Close();
             }
             else
             {
                 api.AddJob(job);
+                Close();
             }
 
 
@@ -55,11 +57,16 @@ namespace Jobs
         {
             if (Config.edit)
             {
-                textBox1.Text = Config.tempJob.ToString();
+                txtId.Text = Config.tempJob.id.ToString();
+                txtCompany.Text = Config.tempJob.company;
+                txtDesc.Text = Config.tempJob.description;
+                txtFunction.Text = Config.tempJob.function;
+                txtHours.Text = Config.tempJob.hoursPerWeek.ToString();
+                txtPayment.Text = Config.tempJob.payment.ToString();
             }
         }
 
-        private void formAdd_Leave(object sender, EventArgs e)
+        private void formAdd_FormClosing(object sender, FormClosingEventArgs e)
         {
             Config.tempJob = new Job();
             Config.edit = false;

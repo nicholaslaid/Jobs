@@ -47,7 +47,7 @@
             dgvJobs.AllowUserToDeleteRows = false;
             dgvJobs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvJobs.Columns.AddRange(new DataGridViewColumn[] { id, Company, function, payment, Horas, Descricao, Editar, Deletar });
-            dgvJobs.Location = new Point(50, 25);
+            dgvJobs.Location = new Point(34, 82);
             dgvJobs.Name = "dgvJobs";
             dgvJobs.ReadOnly = true;
             dgvJobs.RowHeadersWidth = 62;
@@ -58,7 +58,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(50, 404);
+            btnAdd.Location = new Point(1043, 24);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(112, 34);
             btnAdd.TabIndex = 2;
@@ -88,7 +88,7 @@
             // function
             // 
             function.DataPropertyName = "function";
-            function.HeaderText = "function";
+            function.HeaderText = "Function";
             function.MinimumWidth = 8;
             function.Name = "function";
             function.ReadOnly = true;
@@ -96,7 +96,7 @@
             // 
             // payment
             // 
-            payment.DataPropertyName = "pagamento";
+            payment.DataPropertyName = "payment";
             payment.HeaderText = "Payment";
             payment.MinimumWidth = 8;
             payment.Name = "payment";
@@ -105,8 +105,8 @@
             // 
             // Horas
             // 
-            Horas.DataPropertyName = "horas";
-            Horas.HeaderText = "Horas";
+            Horas.DataPropertyName = "hoursPerWeek";
+            Horas.HeaderText = "HoursPerWeek";
             Horas.MinimumWidth = 8;
             Horas.Name = "Horas";
             Horas.ReadOnly = true;
@@ -114,8 +114,8 @@
             // 
             // Descricao
             // 
-            Descricao.DataPropertyName = "descricao";
-            Descricao.HeaderText = "Descricao";
+            Descricao.DataPropertyName = "description";
+            Descricao.HeaderText = "Description";
             Descricao.MinimumWidth = 8;
             Descricao.Name = "Descricao";
             Descricao.ReadOnly = true;
@@ -145,11 +145,12 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1243, 450);
+            ClientSize = new Size(1181, 469);
             Controls.Add(btnAdd);
             Controls.Add(dgvJobs);
             Name = "Form1";
             Text = "Form1";
+            Activated += Form1_Activated;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvJobs).EndInit();
             ResumeLayout(false);
